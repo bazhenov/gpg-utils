@@ -28,6 +28,9 @@ copy_gpg_key $GPG_KEYS_DIRECTORY/bazhenov.public.gpg
 copy_gpg_key $GPG_KEYS_DIRECTORY/bazhenov.secret.gpg
 copy_gpg_key $GPG_KEYS_DIRECTORY/bazhenov.secsub.gpg
 
+pass google.com/backup-codes > $WORKDIR/google-backup-codes.txt
+pass github/backup-codes > $WORKDIR/github-backup-codes.txt
+
 tar czvf "$ARCHIVE" "$WORKDIR"
 rm -rf "$WORKDIR"
 
