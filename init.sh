@@ -8,4 +8,4 @@ if [ -d "$GNUPGHOME" ]; then
   exit 1
 fi
 
-gpg --gen-key
+gpg --expert --full-generate-key

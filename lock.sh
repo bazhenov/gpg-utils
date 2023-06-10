@@ -3,6 +3,7 @@ set -eo pipefail
 
 export GNUPGHOME="$(pwd)/.gnupg"
 MASTER_DIR="gpg-master"
+OUT="$1"
 
 if [ ! -d "$GNUPGHOME" ]; then
   echo "Directory not exists: ${GNUPGHOME}"
@@ -14,15 +15,12 @@ mkdir "$MASTER_DIR"
 gpg --export-options backup --output "$MASTER_DIR/public.gpg" --export
 gpg --export-options backup --output "$MASTER_DIR/private.gpg" --export-secret-keys
 
-tar czf "$MASTER_DIR.tar.gz" "$MASTER_DIR"
-rm -rf "$MASTER_DIR"
-
-if [ -f "$MASTER_DIR.enc" ]; then
-  mv "$MASTER_DIR.enc" "$MASTER_DIR.enc.bak"
+if [ -f "$OUT" ]; then
+  mv "$OUT" "$OUT.bak"
 fi
 
-openssl enc -aes-256-cbc -in "$MASTER_DIR.tar.gz" -out "$MASTER_DIR.enc"
-rm -f "$MASTER_DIR.tar.gz"
+tar cz "$MASTER_DIR" | openssl enc -aes-256-cbc -out "$OUT"
+rm -rf "$MASTER_DIR"
 rm -rf "$GNUPGHOME"
 
 echo "GnuPG home was sucessfully locked."
