@@ -60,3 +60,23 @@ flowchart TD
   Yubico -- Used --> Computer
   Yubico -- Used --> Phone
 ```
+
+## Environment
+
+- Boot into Debian Live CD (11.7.0). Preferably offline.
+- Mount volume
+  ```console
+  $ mount -o uid=1000 /dev/sda2 /mnt
+  ```
+- run initialization script
+  ```console
+  $ source /mnt/gpg-utils/init-shell.sh
+  ```
+- Unlock GPG storage
+  ```console
+  $ unlock.sh /mnt/gpg-master.enc
+  ```
+- After work done dont't forget to update locked storage
+  ```console
+  $ lock.sh /mnt/gpg-master.enc
+  ```

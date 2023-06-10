@@ -10,7 +10,7 @@ if [ -d "$GNUPGHOME" ]; then
   exit 1
 fi
 
-openssl enc -d -aes-256-cbc -in "$INPUT" | tar xz -
+openssl enc -d -aes-256-cbc -in "$INPUT" | tar xz
 
 gpg --import "$MASTER_DIR/public.gpg"
 gpg --import "$MASTER_DIR/private.gpg"
