@@ -1,14 +1,8 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-export GNUPGHOME="$(pwd)/.gnupg"
 MASTER_DIR="gpg-master"
 OUT="$1"
-
-if [ ! -d "$GNUPGHOME" ]; then
-  echo "Directory not exists: ${GNUPGHOME}"
-  exit 1
-fi
 
 mkdir "$MASTER_DIR"
 
@@ -21,7 +15,14 @@ fi
 
 tar cz "$MASTER_DIR" | openssl enc -aes-256-cbc -out "$OUT"
 rm -rf "$MASTER_DIR"
-rm -rf "$GNUPGHOME"
+
+GPGDIR="$(gpgconf -L homedir)"
+read -p "Delete $GPGDIR?: " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+	rm -rf "$GPGDIR"
+fi
 
 echo "GnuPG home was sucessfully locked."
 echo "Enter: unlock.sh to unlock directory"
