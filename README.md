@@ -35,7 +35,7 @@ flowchart TD
     encryption-subkey
   end
 
-  subgraph GitHub
+  subgraph Git
     pass-db[(PassDB)]
   end
 
@@ -66,11 +66,7 @@ flowchart TD
 - Boot into Debian Live CD (11.7.0). Preferably offline.
 - Mount volume
   ```console
-  $ mount -o uid=1000 /dev/sda2 /mnt
-  ```
-- run initialization script
-  ```console
-  $ source /mnt/gpg-utils/init-shell.sh
+  $ mount -o $(id -u) /dev/sdb2 /mnt
   ```
 - Unlock GPG storage
   ```console
