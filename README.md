@@ -76,3 +76,8 @@ flowchart TD
   ```console
   $ lock.sh /mnt/gpg-master.enc
   ```
+
+# Restoring key from Yubikey
+
+- find public key ID exported earlier on a [keyserver](https://keyserver.ubuntu.com)
+- import key using `gpg --receive-keys [KEY ID]`
